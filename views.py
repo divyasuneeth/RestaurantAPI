@@ -36,8 +36,9 @@ def all_restaurants_handler():
       location=request.args.get('location','')
       mealType=request.args.get('mealType','')
       restaurant_info=findARestaurant(mealType,location)
+
       if restaurant_info != "No Restaurant Found":
-          restaurant=Restaurant(restaurant_name=unicode(restaurant_info['name']),restaurant_address=unicode(restaurantInfo['address']),restaurant_image=restaurant_info['image'])
+          restaurant=Restaurant(restaurant_name=unicode(restaurant_info['name']),restaurant_address=unicode(restaurant_info['address']),restaurant_image=restaurant_info['image'])
           session.add(restaurant)
           session.commit()
           return jsonify(restaurant=restaurant.serialize)
@@ -75,4 +76,4 @@ def restaurant_handler(id):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000,threaded = False)
